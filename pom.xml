@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.setur.se23.gameengine.gameengineboilerplate/com.setur.se23.games.HelloApplication
+                                com.setur.se23.gameengine.gameengineboilerplate/com.setur.se23.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

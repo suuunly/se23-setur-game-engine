@@ -1,4 +1,4 @@
-package com.setur.se23.games;
+package com.setur.se23;
 
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 import com.setur.se23.engine.render.Renderer;
@@ -6,7 +6,7 @@ import com.setur.se23.engine.render.common.ViewPort;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class HelloApplication extends Application {
+public class Main extends Application {
     public static void main(String[] args) {
         launch();
     }
@@ -19,8 +19,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Game Engine Boilerplate!");
 
         initializeRenderer(stage);
-
-        CrudeNonGameEngineLoop loop = new CrudeNonGameEngineLoop();
+        CrudeNonGameEngineLoop loop = new CrudeNonGameEngineLoop(stage);
         loop.start();
     }
 

@@ -38,22 +38,21 @@ public class CrudeNonGameEngineLoop extends AnimationTimer {
         // note: this code should be abstract behind an input management module (just like the render module)
         // again, the input system should not be aware of stage/scene. That should be abstracted away just like the render module.
         stage.getScene().setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case KeyCode.A:
-                    _xDir = -1;
-                    _yDir = 0;
-                    break;
-                case KeyCode.D:
-                    _xDir = 1;
-                    _yDir = 0;
-                    break;
-                case KeyCode.W:
-                    _yDir = -1;
-                    _xDir = 0;
-                    break;
-                case KeyCode.S:
-                    _yDir = 1;
-                    _xDir = 0;
+            KeyCode code = event.getCode();
+            if (code == KeyCode.A) {
+                _xDir = -1;
+                _yDir = 0;
+            } else if (code == KeyCode.D) {
+                _xDir = 1;
+                _yDir = 0;
+            }
+
+            if (code == KeyCode.W) {
+                _yDir = -1;
+                _xDir = 0;
+            } else if (code == KeyCode.S) {
+                _yDir = 1;
+                _xDir = 0;
             }
         });
 
@@ -92,7 +91,7 @@ public class CrudeNonGameEngineLoop extends AnimationTimer {
         // just manually rendering the bird
         // note: this should be abstract into a render component of sorts.
         Renderer.getInstance().render(material, _xPos, _yPos);
-        
+
         Renderer.getInstance().swapBuffers();
     }
 }

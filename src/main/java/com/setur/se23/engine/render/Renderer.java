@@ -28,6 +28,10 @@ public class Renderer {
         return instance;
     }
 
+    public static void Destroy() {
+        instance = null;
+    }
+
     /**
      * Gets the singleton instance of the renderer.
      *

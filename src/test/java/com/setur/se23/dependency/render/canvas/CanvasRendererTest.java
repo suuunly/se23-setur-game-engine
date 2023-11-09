@@ -1,12 +1,12 @@
 package com.setur.se23.dependency.render.canvas;
 
-import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class CanvasRendererTest {
 
@@ -14,9 +14,11 @@ class CanvasRendererTest {
 
     @BeforeEach
     void setUp() {
-        _stageStub = new Stage();
+        // we are using mockito to mock the class because the Stage class is not an interface that we can stub
+        _stageStub = mock(Stage.class);
     }
 
+    // this can be improved by using parameterized tests, passing in the width and height as parameters, where one is negative and the other is positive for each
     @Test
     void initialize_WithWidthSmallerThan0_ThrowsException() {
         // Arrange
@@ -25,12 +27,28 @@ class CanvasRendererTest {
         var canvasRenderer = new CanvasRenderer(_stageStub);
 
         // Act
-        Throwable exception = assertThrows(ArithmeticException.class, () -> {
-            canvasRenderer.initialize(new ViewPort(invalidWidth, validHeight));
-        });
+        var exception = Assertions.assertThrows(IllegalArgumentException.class, () ->
+                canvasRenderer.initialize(new ViewPort(invalidWidth, validHeight))
+        );
 
         // Assert
-        assertNotNull(exception);
+        Assertions.assertNotNull(exception);
+    }
+
+    @Test
+    void initialize_WithHeightSmallerThan0_ThrowsException() {
+        // Arrange
+        var invalidWidth = 100;
+        var validHeight = -100;
+        var canvasRenderer = new CanvasRenderer(_stageStub);
+
+        // Act
+        var exception = Assertions.assertThrows(IllegalArgumentException.class, () ->
+                canvasRenderer.initialize(new ViewPort(invalidWidth, validHeight))
+        );
+
+        // Assert
+        Assertions.assertNotNull(exception);
     }
 
 

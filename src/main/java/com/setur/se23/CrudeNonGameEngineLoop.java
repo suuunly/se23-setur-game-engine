@@ -1,5 +1,6 @@
 package com.setur.se23;
 
+import com.setur.se23.engine.game.timing.Time;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
@@ -22,8 +23,6 @@ public class CrudeNonGameEngineLoop extends AnimationTimer {
             new Texture2D("file:src/main/resources/sprites/flappy-bird.png", 40, 30),
             new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)
     );
-
-    private long previousTime = 0;
 
     // some arbitrary game specific properties just to demonstrate the render module
     private double _xPos = 10.0;
@@ -62,24 +61,17 @@ public class CrudeNonGameEngineLoop extends AnimationTimer {
     @Override
     public void handle(long currentTime) {
 
-        // Quick and dirty method of calculating the delta time. to keep the speed consistent
-        if (previousTime == 0) {
-            previousTime = currentTime;
-        }
+        Time.getInstance().updateTime(currentTime);
 
-        double deltaTimeNs = currentTime - previousTime;
-        double deltaTimeS = deltaTimeNs / 1_000_000_000.0;
-
-        // Call your update method to update the game state based on deltaTime
-        update(deltaTimeS);
+        update();
 
         // Call your render method to render the game state to the screen
         render();
-
-        previousTime = currentTime;
     }
 
-    private void update(double deltaTime) {
+    private void update() {
+
+        float deltaTime = Time.getInstance().getDeltaTime();
 
         // just some quick example to move the bird in the direction you chose
         _xPos += _xDir * SPEED * deltaTime;

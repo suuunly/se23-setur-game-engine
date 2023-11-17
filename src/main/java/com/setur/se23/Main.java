@@ -1,6 +1,7 @@
 package com.setur.se23;
 
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
+import com.setur.se23.engine.game.timing.Time;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
 import javafx.application.Application;
@@ -19,6 +20,8 @@ public class Main extends Application {
         stage.setTitle("Game Engine Boilerplate!");
 
         initializeRenderer(stage);
+        initialiseGameLoop();
+
         CrudeNonGameEngineLoop loop = new CrudeNonGameEngineLoop(stage);
         loop.start();
     }
@@ -28,5 +31,9 @@ public class Main extends Application {
 
         Renderer.Instantiate(canvasRenderer)
                 .initialize(new ViewPort(stage.getWidth(), stage.getHeight()));
+    }
+
+    private void initialiseGameLoop() {
+        Time.instantiate();
     }
 }

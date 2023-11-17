@@ -1,6 +1,8 @@
 package com.setur.se23;
 
+import com.setur.se23.dependency.loop.animationTimer.AnimationTimerGameLoop;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
+import com.setur.se23.engine.game.loop.GameLoop;
 import com.setur.se23.engine.game.timing.Time;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
@@ -22,8 +24,8 @@ public class Main extends Application {
         initializeRenderer(stage);
         initialiseGameLoop();
 
-        CrudeNonGameEngineLoop loop = new CrudeNonGameEngineLoop(stage);
-        loop.start();
+//        CrudeNonGameEngineLoop loop = new CrudeNonGameEngineLoop(stage);
+//        loop.start();
     }
 
     private void initializeRenderer(Stage stage) {
@@ -35,5 +37,8 @@ public class Main extends Application {
 
     private void initialiseGameLoop() {
         Time.instantiate();
+
+        var animationTimer = new AnimationTimerGameLoop();
+        new GameLoop(animationTimer).start();
     }
 }

@@ -1,5 +1,8 @@
 package com.setur.se23;
 
+import com.setur.se23.engine.core.math.Vector2D;
+import com.setur.se23.engine.game.GameObject;
+import com.setur.se23.engine.game.component.render.SpriteRenderer;
 import com.setur.se23.engine.game.timing.Time;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.Material;
@@ -9,6 +12,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 // Note: DISCLAIMER: THIS CLASS IS PURELY HERE TO DEMONSTRATE A QUICK DEMO OF SOMETHING MOVING ON THE SCREEN OVER TIME.
 // YOU CAN TAKE INSPIRATION FROM THIS CLASS ON HOW YOU COULD IMPLEMENT YOUR GAME LOOP
 // HOWEVER, BEAR IN MIND THAT THE LOOP SHOULD NOT KNOW OF ANYTHING RELATED TO JAVAFX AND ESPECIALLY NOT ANY GAME SPECIFIC LOGIC
@@ -16,23 +21,28 @@ public class CrudeNonGameEngineLoop extends AnimationTimer {
 
     // some arbitrary game specific properties just to demonstrate the render module
     private static final double SPEED = 100;
+    private final ArrayList<GameObject> gameObjects = new ArrayList<>();
 
-    // some quick and dirty example material to render a bird
-    // note: that the texture should really be loaded through a resource manager
-    private final Material material = new Material(
-            new Texture2D("file:src/main/resources/sprites/flappy-bird.png", 40, 30),
-            new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)
-    );
-
-    // some arbitrary game specific properties just to demonstrate the render module
-    private double _xPos = 10.0;
-    private double _yPos = 10.0;
     private double _xDir = 1;
     private double _yDir = 0;
 
     // note: when you build your game loop, do not have any association with anything related to JavaFX.
     // The game loop should not have any hard dependency on JavaFX. It should only use abstractions
     public CrudeNonGameEngineLoop(Stage stage) {
+
+        var bird = new GameObject();
+        // some quick and dirty example material to render a bird
+        // note: that the texture should really be loaded through a resource manager
+        Material material = new Material(
+                new Texture2D("file:src/main/resources/sprites/flappy-bird.png", 40, 30),
+                new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)
+        );
+        bird.components.addComponent(new SpriteRenderer(material));
+
+        gameObjects.add(bird);
+
+
+        gameObjects.forEach(GameObject::initialize);
 
         // note: this code should be abstract behind an input management module (just like the render module)
         // again, the input system should not be aware of stage/scene. That should be abstracted away just like the render module.
@@ -73,17 +83,15 @@ public class CrudeNonGameEngineLoop extends AnimationTimer {
 
         float deltaTime = Time.getInstance().getDeltaTime();
 
-        // just some quick example to move the bird in the direction you chose
-        _xPos += _xDir * SPEED * deltaTime;
-        _yPos += _yDir * SPEED * deltaTime;
+        gameObjects.get(0).transform.translate(new Vector2D(
+                (float) (_xDir * SPEED * deltaTime),
+                (float) (_yDir * SPEED * deltaTime)
+        ));
+
+        gameObjects.forEach(GameObject::update);
     }
 
     private void render() {
-
-        // just manually rendering the bird
-        // note: this should be abstract into a render component of sorts.
-        Renderer.getInstance().render(material, _xPos, _yPos);
-
         Renderer.getInstance().swapBuffers();
     }
 }

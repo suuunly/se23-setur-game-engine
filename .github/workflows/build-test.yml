@@ -8,28 +8,25 @@
 
 name: Java CI with Maven  # Name of the workflow
 
-on:  # Event triggers for the workflow
-  push:  # Triggers when code is pushed to the specified branches
+on: # Event triggers for the workflow
+  push: # Triggers when code is pushed to the specified branches
     branches: [ "main" ]
-  pull_request:  # Triggers when a pull request is opened or updated
+  pull_request: # Triggers when a pull request is opened or updated
     branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest  # Specifies the operating system to run the job on
 
-    steps:  # List of steps to perform
-    - uses: actions/checkout@v3  # Checks out the code repository
+    steps: # List of steps to perform
+      - uses: actions/checkout@v3  # Checks out the code repository
 
-    - name: Set up JDK
-      uses: actions/setup-java@v3  # Uses a pre-built action to set up Java
-      with:
-        java-version: '21'  # Specifies the Java version to set up
-        distribution: 'temurin'  # Specifies the distribution of Java to use (Temurin is an OpenJDK distribution)
-        cache: maven  # Caches Maven dependencies to improve performance
+      - name: Set up JDK
+        uses: actions/setup-java@v3  # Uses a pre-built action to set up Java
+        with:
+          java-version: '21'  # Specifies the Java version to set up
+          distribution: 'temurin'  # Specifies the distribution of Java to use (Temurin is an OpenJDK distribution)
+          cache: maven  # Caches Maven dependencies to improve performance
 
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml  # Executes the "mvn" command with specified options
-
-    - name: Run Tests with Maven
-      run: mvn test --file pom.xml  # Executes the "mvn" command to run tests
+      - name: Build and Test Java Project
+        run: mvn --batch-mode --update-snapshots verify

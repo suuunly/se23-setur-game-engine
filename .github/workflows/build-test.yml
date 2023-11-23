@@ -29,4 +29,5 @@ jobs:
           cache: maven  # Caches Maven dependencies to improve performance
 
       - name: Build and Test Java Project
-        run: mvn --batch-mode --update-snapshots verify # Runs the Maven build and test commands
+        run: mvn test -Dtest="*" -DtestSourceDirectory="src/test"
+

@@ -24,12 +24,9 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3  # Uses a pre-built action to set up Java
         with:
-          java-version: '17'  # Specifies the Java version to set up
+          java-version: '21'  # Specifies the Java version to set up
           distribution: 'temurin'  # Specifies the distribution of Java to use (Temurin is an OpenJDK distribution)
           cache: maven  # Caches Maven dependencies to improve performance
 
-      - name: Test
-        run: ls
-
       - name: Build and Test Java Project
-        run: mvn --batch-mode --update-snapshots verify --file pom.xml  # Runs the Maven build and test commands
+        run: mvn --batch-mode --update-snapshots verify # Runs the Maven build and test commands

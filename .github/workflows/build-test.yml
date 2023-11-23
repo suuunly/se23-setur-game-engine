@@ -29,4 +29,4 @@ jobs:
           cache: maven  # Caches Maven dependencies to improve performance
 
       - name: Build and Test Java Project
-        run: mvn --batch-mode --update-snapshots verify
+        run: mvn --batch-mode --update-snapshots verify --file pom.xml  # Runs the Maven build and test commands

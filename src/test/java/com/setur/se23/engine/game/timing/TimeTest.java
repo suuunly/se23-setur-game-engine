@@ -27,11 +27,6 @@ public class TimeTest {
     }
 
     @Test
-    void derp_failing_tests() {
-        assertEquals(1, 2);
-    }
-
-    @Test
     void deltaTime_WhenNeverUpdated_IsZero() {
         // Arrange
         Time.instantiate();

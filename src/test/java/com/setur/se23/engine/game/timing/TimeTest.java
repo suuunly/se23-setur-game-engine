@@ -83,6 +83,11 @@ public class TimeTest {
         assertEquals(0.0f, Time.deltaTime());
     }
 
+    @Test()
+    void test_should_fail() {
+        assertEquals(1, 2);
+    }
+
     @AfterEach
     void tearDown() {
         Time.Destroy();

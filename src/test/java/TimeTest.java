@@ -1,5 +1,3 @@
-package com.setur.se23;
-
 import com.setur.se23.engine.game.timing.Time;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

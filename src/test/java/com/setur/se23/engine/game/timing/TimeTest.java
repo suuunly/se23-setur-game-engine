@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TimeTest {
     @Test
-    void getInstance_NotInstantiated_ReturnsNull() {
+    public void getInstance_NotInstantiated_ReturnsNull() {
         // Arrange
         // Act
         var instance = Time.getInstance();
@@ -17,7 +17,7 @@ public class TimeTest {
     }
 
     @Test
-    void instantiate_NotInstantiated_InstantiatesRenderer() {
+    public void instantiate_NotInstantiated_InstantiatesRenderer() {
         // Arrange
         // Act
         Time.instantiate();
@@ -27,7 +27,7 @@ public class TimeTest {
     }
 
     @Test
-    void deltaTime_WhenNeverUpdated_IsZero() {
+    public void deltaTime_WhenNeverUpdated_IsZero() {
         // Arrange
         Time.instantiate();
 
@@ -39,7 +39,7 @@ public class TimeTest {
     }
 
     @Test
-    void deltaTime_WhenUpdated_ReturnsDeltaValueOfTwoTimes() {
+    public void deltaTime_WhenUpdated_ReturnsDeltaValueOfTwoTimes() {
         // Arrange
         Time.instantiate();
         var expected = 2.0f - 1.0f;
@@ -53,7 +53,7 @@ public class TimeTest {
     }
 
     @Test
-    void setTimeScale_WhenReducingTimeScaleByHalf_ReturnsHalfTheDeltaValueOfTheTwoTimes() {
+    public void setTimeScale_WhenReducingTimeScaleByHalf_ReturnsHalfTheDeltaValueOfTheTwoTimes() {
         // Arrange
         Time.instantiate();
         var expected = (2.0f - 1.0f) / 2.0f;
@@ -69,7 +69,7 @@ public class TimeTest {
     }
 
     @Test
-    void setTimeScale_WhenSettingTimeScaleToZero_ReturnsDeltaTimeAsZero() {
+    public void setTimeScale_WhenSettingTimeScaleToZero_ReturnsDeltaTimeAsZero() {
         // Arrange
         Time.instantiate();
 
@@ -84,7 +84,7 @@ public class TimeTest {
     }
 
     @AfterEach
-    void tearDown() {
+    public void tearDown() {
         Time.Destroy();
     }
 }

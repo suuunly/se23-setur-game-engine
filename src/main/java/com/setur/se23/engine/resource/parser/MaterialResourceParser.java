@@ -1,8 +1,8 @@
 package com.setur.se23.engine.resource.parser;
 
-import com.setur.se23.engine.render.common.Material;
-import com.setur.se23.engine.render.common.MaterialColour;
-import com.setur.se23.engine.render.common.Texture2D;
+import com.setur.se23.engine.core.visual.Material;
+import com.setur.se23.engine.core.visual.MaterialColour;
+import com.setur.se23.engine.core.visual.Texture2D;
 import com.setur.se23.engine.resource.ProcessedFileContent;
 import com.setur.se23.engine.resource.ResourceParser;
 

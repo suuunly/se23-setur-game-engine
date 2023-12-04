@@ -1,6 +1,6 @@
 package com.setur.se23.dependency.render.canvas;
 
-import com.setur.se23.engine.render.common.MaterialColour;
+import com.setur.se23.engine.core.visual.MaterialColour;
 import javafx.scene.paint.Color;
 
 public class CanvasConverter {

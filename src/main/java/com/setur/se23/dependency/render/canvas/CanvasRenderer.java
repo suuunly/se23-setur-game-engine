@@ -1,10 +1,10 @@
 package com.setur.se23.dependency.render.canvas;
 
+import com.setur.se23.engine.core.visual.Material;
+import com.setur.se23.engine.core.visual.Texture2D;
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.RenderPipelineInterface;
-import com.setur.se23.engine.render.common.Material;
-import com.setur.se23.engine.render.common.Texture2D;
-import com.setur.se23.engine.render.common.ViewPort;
+import com.setur.se23.engine.render.ViewPort;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;

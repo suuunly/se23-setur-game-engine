@@ -1,6 +1,6 @@
 package com.setur.se23.engine.resource;
 
-import com.setur.se23.engine.render.common.Material;
+import com.setur.se23.engine.core.visual.Material;
 import com.setur.se23.engine.resource.parser.MaterialResourceParser;
 
 import java.io.BufferedReader;

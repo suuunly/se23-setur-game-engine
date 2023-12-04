@@ -1,6 +1,6 @@
 package com.setur.se23.dependency.render.canvas;
 
-import com.setur.se23.engine.render.common.ViewPort;
+import com.setur.se23.engine.render.ViewPort;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

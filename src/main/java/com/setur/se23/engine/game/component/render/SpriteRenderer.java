@@ -1,11 +1,11 @@
 package com.setur.se23.engine.game.component.render;
 
 import com.setur.se23.engine.core.math.Vector2D;
+import com.setur.se23.engine.core.visual.Material;
 import com.setur.se23.engine.game.component.BaseComponent;
 import com.setur.se23.engine.game.component.behaviour.InitializingComponent;
 import com.setur.se23.engine.game.component.behaviour.RenderableComponent;
 import com.setur.se23.engine.render.Renderer;
-import com.setur.se23.engine.render.common.Material;
 
 /**
  * The SpriteRenderer class is responsible for rendering a sprite using a specified material.

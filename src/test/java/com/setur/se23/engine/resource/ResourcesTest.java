@@ -1,6 +1,6 @@
 package com.setur.se23.engine.resource;
 
-import com.setur.se23.engine.render.common.Material;
+import com.setur.se23.engine.core.visual.Material;
 import com.setur.se23.engine.resource.process.JsonFileProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

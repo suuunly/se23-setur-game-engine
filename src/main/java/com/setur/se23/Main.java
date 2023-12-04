@@ -2,6 +2,7 @@ package com.setur.se23;
 
 import com.setur.se23.dependency.game.JavaFxGameLoop;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
+import com.setur.se23.engine.core.visual.Material;
 import com.setur.se23.engine.game.GameObject;
 import com.setur.se23.engine.game.component.render.SpriteRenderer;
 import com.setur.se23.engine.game.loop.GameLoop;
@@ -9,8 +10,7 @@ import com.setur.se23.engine.game.scene.Scene;
 import com.setur.se23.engine.game.scene.SceneManager;
 import com.setur.se23.engine.game.timing.Time;
 import com.setur.se23.engine.render.Renderer;
-import com.setur.se23.engine.render.common.Material;
-import com.setur.se23.engine.render.common.ViewPort;
+import com.setur.se23.engine.render.ViewPort;
 import com.setur.se23.engine.resource.Resources;
 import com.setur.se23.engine.resource.process.JsonFileProcessor;
 import com.setur.se23.game.flappy.component.PlayerController;

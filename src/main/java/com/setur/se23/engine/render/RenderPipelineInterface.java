@@ -1,8 +1,7 @@
 package com.setur.se23.engine.render;
 
-import com.setur.se23.engine.render.common.Material;
-import com.setur.se23.engine.render.common.Texture2D;
-import com.setur.se23.engine.render.common.ViewPort;
+import com.setur.se23.engine.core.visual.Material;
+import com.setur.se23.engine.core.visual.Texture2D;
 
 public interface RenderPipelineInterface {
 

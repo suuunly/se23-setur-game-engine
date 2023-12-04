@@ -1,13 +1,24 @@
 package com.setur.se23;
 
+import com.setur.se23.dependency.game.JavaFxGameLoop;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
+import com.setur.se23.engine.game.GameObject;
+import com.setur.se23.engine.game.component.render.SpriteRenderer;
+import com.setur.se23.engine.game.loop.GameLoop;
+import com.setur.se23.engine.game.scene.Scene;
+import com.setur.se23.engine.game.scene.SceneManager;
 import com.setur.se23.engine.game.timing.Time;
 import com.setur.se23.engine.render.Renderer;
+import com.setur.se23.engine.render.common.Material;
+import com.setur.se23.engine.render.common.MaterialColour;
+import com.setur.se23.engine.render.common.Texture2D;
 import com.setur.se23.engine.render.common.ViewPort;
+import com.setur.se23.game.flappy.component.PlayerController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
     public static void main(String[] args) {
         launch();
     }
@@ -18,22 +29,42 @@ public class Main extends Application {
         stage.setWidth(800.0f);
         stage.setHeight(800.0f);
         stage.setTitle("Game Engine Boilerplate!");
+        initializeGameEngine(stage);
 
-        initializeRenderer(stage);
-        initialiseGameLoop();
-
-        CrudeNonGameEngineLoop loop = new CrudeNonGameEngineLoop(stage);
-        loop.start();
+        SceneManager.getInstance().addScene(setupMainScene(stage));
     }
 
-    private void initializeRenderer(Stage stage) {
-        var canvasRenderer = new CanvasRenderer(stage);
+    private Scene setupMainScene(Stage stage) {
 
-        Renderer.Instantiate(canvasRenderer)
-                .initialize(new ViewPort(stage.getWidth(), stage.getHeight()));
+        var gameLoop = new GameLoop(new JavaFxGameLoop());
+
+        var scene = new Scene("main", gameLoop);
+
+        var bird = new GameObject("bird");
+
+        // some quick and dirty example material to render a bird
+        // note: that the texture should really be loaded through a resource manager
+        Material material = new Material(
+                new Texture2D("file:src/main/resources/sprites/flappy-bird.png", 40, 30),
+                new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)
+        );
+        bird.addComponent(new SpriteRenderer(material));
+        bird.addComponent(new PlayerController(stage));
+
+        scene.addGameObject(bird);
+
+        return scene;
     }
 
-    private void initialiseGameLoop() {
+    private void initializeGameEngine(Stage stage) {
+
+        // world setup
+        SceneManager.initialize();
         Time.instantiate();
+
+
+        // renderer setup
+        var canvasRenderer = new CanvasRenderer(stage);
+        Renderer.Instantiate(canvasRenderer).initialize(new ViewPort(stage.getWidth(), stage.getHeight()));
     }
 }

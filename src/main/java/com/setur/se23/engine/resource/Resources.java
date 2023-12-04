@@ -1,5 +1,6 @@
 package com.setur.se23.engine.resource;
 
+import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.resource.parser.MaterialResourceParser;
 
 import java.io.BufferedReader;
@@ -18,7 +19,7 @@ public class Resources {
         _processor = processor;
         _rootPath = rootPath;
 
-        registerParser(new MaterialResourceParser());
+        registerParser(Material.class, new MaterialResourceParser());
     }
 
     public static Resources getInstance() {
@@ -30,9 +31,8 @@ public class Resources {
         return getInstance().loadInternal(path, type);
     }
 
-    public static Resources initialize(FileProcessor processor, String rootPath) {
+    public static void initialize(FileProcessor processor, String rootPath) {
         _instance = new Resources(processor, rootPath);
-        return _instance;
     }
 
     public String loadPath(String path) {
@@ -41,17 +41,15 @@ public class Resources {
 
     private <T> T loadInternal(String path, Class<T> type) {
 
-        File file = new File(loadPath(path));
+        ResourceParser parser = _parsers.get(type.getName());
+        if (parser == null) {
+            throw new RuntimeException("No parser found for extension: " + type.getName());
+        }
+
+        File file = new File(loadPath(path + "." + parser.getExtension()));
 
         var filePath = file.getAbsolutePath();
         var content = processContent(filePath);
-
-        String extension = filePath.substring(filePath.lastIndexOf(".") + 1);
-
-        ResourceParser parser = _parsers.get(extension);
-        if (parser == null) {
-            throw new RuntimeException("No parser found for extension: " + extension);
-        }
 
         var parsedResult = parser.parse(content);
         if (!type.isInstance(parser.parse(content))) {
@@ -87,8 +85,8 @@ public class Resources {
 
     }
 
-    public void registerParser(ResourceParser parser) {
-        _parsers.put(parser.getExtension(), parser);
+    public void registerParser(Class<?> type, ResourceParser parser) {
+        _parsers.put(type.getName(), parser);
     }
 
 }

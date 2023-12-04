@@ -25,7 +25,7 @@ class ResourcesTest {
         // Arrange
         assertThrows(
                 RuntimeException.class,
-                () -> Resources.load("does-not-exist.txt", Material.class)
+                () -> Resources.load("does-not-exist", Material.class)
         );
     }
 
@@ -33,7 +33,7 @@ class ResourcesTest {
     void load_WhenAValidFileIsLoaded_ReturnsMaterial() {
         // Arrange
         // Act
-        var material = Resources.load("valid-file.mat", Material.class);
+        var material = Resources.load("valid-file", Material.class);
 
         // Assert
         assertEquals(1.0f, material.colour().r());
@@ -46,7 +46,7 @@ class ResourcesTest {
         // Assert
         assertThrows(
                 RuntimeException.class,
-                () -> Resources.load("invalid-file.mat", Material.class)
+                () -> Resources.load("invalid-file", Material.class)
         );
     }
 }

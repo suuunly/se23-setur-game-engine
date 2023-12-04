@@ -12,7 +12,6 @@ import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.ViewPort;
 import com.setur.se23.engine.resource.Resources;
-import com.setur.se23.engine.resource.parser.MaterialResourceParser;
 import com.setur.se23.engine.resource.process.JsonFileProcessor;
 import com.setur.se23.game.flappy.component.PlayerController;
 import javafx.application.Application;
@@ -41,7 +40,7 @@ public class Main extends Application {
         scene.setupScene(builder -> {
 
             var bird = new GameObject("bird");
-            bird.addComponent(new SpriteRenderer(Resources.load("materials/flappy-bird.mat", Material.class)));
+            bird.addComponent(new SpriteRenderer(Resources.load("materials/flappy-bird", Material.class)));
             bird.addComponent(new PlayerController(stage));
 
             builder.add(bird);
@@ -53,8 +52,7 @@ public class Main extends Application {
     private void initializeGameEngine(Stage stage) {
 
         // resource setup
-        Resources.initialize(new JsonFileProcessor(), "src/main/resources/")
-                .registerParser(new MaterialResourceParser());
+        Resources.initialize(new JsonFileProcessor(), "src/main/resources/");
 
         // world setup
         GameLoop.initialize(new JavaFxGameLoop());

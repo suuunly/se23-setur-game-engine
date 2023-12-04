@@ -2,7 +2,7 @@ package com.setur.se23.engine.game.component;
 
 import com.setur.se23.engine.game.GameObject;
 
-public abstract class BaseComponent implements ComponentInterface {
+public abstract class BaseComponent {
 
     private GameObject gameObject;
 
@@ -10,7 +10,7 @@ public abstract class BaseComponent implements ComponentInterface {
         return gameObject;
     }
 
-    public void initialize(GameObject owner) {
+    public final void initialize(GameObject owner) {
         this.gameObject = owner;
     }
 }

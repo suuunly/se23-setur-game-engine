@@ -8,4 +8,6 @@ module com.setur.se23.gameengine.gameengineboilerplate {
     opens com.setur.se23.engine.render.common to javafx.fxml;
     exports com.setur.se23;
     opens com.setur.se23 to javafx.fxml;
+    exports com.setur.se23.dependency.game;
+    opens com.setur.se23.dependency.game to javafx.fxml;
 }

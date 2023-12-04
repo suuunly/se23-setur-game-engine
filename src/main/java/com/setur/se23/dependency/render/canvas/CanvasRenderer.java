@@ -55,7 +55,8 @@ public class CanvasRenderer implements RenderPipelineInterface {
 
     @Override
     public void allocateTexture(Texture2D texture) {
-        _textureMap.put(texture.path(), new Image(texture.path()));
+        // todo: convert this to a pixel based solution instead so we don't need to resort to a string based solution
+        _textureMap.put(texture.path(), new Image("file:src/main/resources/" + texture.path()));
     }
 
     @Override

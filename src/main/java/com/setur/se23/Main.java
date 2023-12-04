@@ -10,9 +10,10 @@ import com.setur.se23.engine.game.scene.SceneManager;
 import com.setur.se23.engine.game.timing.Time;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.Material;
-import com.setur.se23.engine.render.common.MaterialColour;
-import com.setur.se23.engine.render.common.Texture2D;
 import com.setur.se23.engine.render.common.ViewPort;
+import com.setur.se23.engine.resource.Resources;
+import com.setur.se23.engine.resource.parser.MaterialResourceParser;
+import com.setur.se23.engine.resource.process.JsonFileProcessor;
 import com.setur.se23.game.flappy.component.PlayerController;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -37,16 +38,14 @@ public class Main extends Application {
     private Scene setupMainScene(Stage stage) {
         var scene = new Scene("main");
 
+        var res = new Resources(new JsonFileProcessor());
+        res.registerParser(new MaterialResourceParser());
+
+        var material = res.load("materials/flappy-bird.mat", Material.class);
+
         scene.setupScene(builder -> {
 
             var bird = new GameObject("bird");
-
-            // some quick and dirty example material to render a bird
-            // note: that the texture should really be loaded through a resource manager
-            Material material = new Material(
-                    new Texture2D("file:src/main/resources/sprites/flappy-bird.png", 40, 30),
-                    new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)
-            );
             bird.addComponent(new SpriteRenderer(material));
             bird.addComponent(new PlayerController(stage));
 

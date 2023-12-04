@@ -35,23 +35,23 @@ public class Main extends Application {
     }
 
     private Scene setupMainScene(Stage stage) {
+        var scene = new Scene("main");
 
-        var gameLoop = new GameLoop(new JavaFxGameLoop());
+        scene.setupScene(builder -> {
 
-        var scene = new Scene("main", gameLoop);
+            var bird = new GameObject("bird");
 
-        var bird = new GameObject("bird");
+            // some quick and dirty example material to render a bird
+            // note: that the texture should really be loaded through a resource manager
+            Material material = new Material(
+                    new Texture2D("file:src/main/resources/sprites/flappy-bird.png", 40, 30),
+                    new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)
+            );
+            bird.addComponent(new SpriteRenderer(material));
+            bird.addComponent(new PlayerController(stage));
 
-        // some quick and dirty example material to render a bird
-        // note: that the texture should really be loaded through a resource manager
-        Material material = new Material(
-                new Texture2D("file:src/main/resources/sprites/flappy-bird.png", 40, 30),
-                new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)
-        );
-        bird.addComponent(new SpriteRenderer(material));
-        bird.addComponent(new PlayerController(stage));
-
-        scene.addGameObject(bird);
+            builder.add(bird);
+        });
 
         return scene;
     }
@@ -59,12 +59,14 @@ public class Main extends Application {
     private void initializeGameEngine(Stage stage) {
 
         // world setup
+        GameLoop.initialize(new JavaFxGameLoop());
         SceneManager.initialize();
         Time.instantiate();
-
 
         // renderer setup
         var canvasRenderer = new CanvasRenderer(stage);
         Renderer.Instantiate(canvasRenderer).initialize(new ViewPort(stage.getWidth(), stage.getHeight()));
+
+        GameLoop.getInstance().start();
     }
 }

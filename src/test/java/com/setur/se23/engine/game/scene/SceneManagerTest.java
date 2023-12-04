@@ -12,14 +12,12 @@ import static org.mockito.Mockito.mock;
 class SceneManagerTest {
 
     SceneManager sut;
-    GameLoop loop;
 
     @BeforeEach()
     void setUp() {
+        GameLoop.initialize(mock(GameIterationInterface.class));
         SceneManager.initialize();
         sut = SceneManager.getInstance();
-
-        loop = new GameLoop(mock(GameIterationInterface.class));
     }
 
     @AfterEach()
@@ -32,7 +30,7 @@ class SceneManagerTest {
     void addScene_WhenNoSceneExists_AddsSceneToCollection() {
 
         // Arrange
-        Scene scene = new Scene("test", loop);
+        Scene scene = new Scene("test");
 
         // Act
         sut.addScene(scene);
@@ -44,7 +42,7 @@ class SceneManagerTest {
     @Test()
     void addScene_WhenSceneAlreadyExists_ThrowsException() {
         // Arrange
-        Scene scene = new Scene("test", loop);
+        Scene scene = new Scene("test");
 
         // Act
         // Assert
@@ -54,7 +52,7 @@ class SceneManagerTest {
     @Test()
     void addScene_WhenNoSceneIsExists_SetsAddedSceneAsCurrent() {
         // Arrange
-        Scene scene = new Scene("test", loop);
+        Scene scene = new Scene("test");
 
         // Act
         sut.addScene(scene);
@@ -77,7 +75,7 @@ class SceneManagerTest {
         var sceneName1 = "test1";
         var sceneName2 = "test2";
 
-        sut.addScene(new Scene(sceneName1, loop)).addScene(new Scene(sceneName2, loop));
+        sut.addScene(new Scene(sceneName1)).addScene(new Scene(sceneName2));
 
         // Act
         sut.selectScene(sceneName2);

@@ -38,15 +38,10 @@ public class Main extends Application {
     private Scene setupMainScene(Stage stage) {
         var scene = new Scene("main");
 
-        var res = new Resources(new JsonFileProcessor());
-        res.registerParser(new MaterialResourceParser());
-
-        var material = res.load("materials/flappy-bird.mat", Material.class);
-
         scene.setupScene(builder -> {
 
             var bird = new GameObject("bird");
-            bird.addComponent(new SpriteRenderer(material));
+            bird.addComponent(new SpriteRenderer(Resources.load("materials/flappy-bird.mat", Material.class)));
             bird.addComponent(new PlayerController(stage));
 
             builder.add(bird);
@@ -56,6 +51,10 @@ public class Main extends Application {
     }
 
     private void initializeGameEngine(Stage stage) {
+
+        // resource setup
+        Resources.initialize(new JsonFileProcessor(), "src/main/resources/")
+                .registerParser(new MaterialResourceParser());
 
         // world setup
         GameLoop.initialize(new JavaFxGameLoop());

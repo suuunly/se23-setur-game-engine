@@ -9,22 +9,37 @@ import java.util.HashMap;
 
 public class Resources {
 
-    private static final String _resourcesPath = "src/main/resources/";
-
+    private static Resources _instance;
     private final HashMap<String, ResourceParser> _parsers = new HashMap<>();
     private final FileProcessor _processor;
+    private final String _rootPath;
 
-    public Resources(FileProcessor processor) {
+    private Resources(FileProcessor processor, String rootPath) {
         _processor = processor;
+        _rootPath = rootPath;
 
         registerParser(new MaterialResourceParser());
     }
 
-    public String loadPath(String path) {
-        return _resourcesPath + path;
+    public static Resources getInstance() {
+        assert _instance != null;
+        return _instance;
     }
 
-    public <T> T load(String path, Class<T> type) {
+    public static <T> T load(String path, Class<T> type) {
+        return getInstance().loadInternal(path, type);
+    }
+
+    public static Resources initialize(FileProcessor processor, String rootPath) {
+        _instance = new Resources(processor, rootPath);
+        return _instance;
+    }
+
+    public String loadPath(String path) {
+        return _rootPath + path;
+    }
+
+    private <T> T loadInternal(String path, Class<T> type) {
 
         File file = new File(loadPath(path));
 
